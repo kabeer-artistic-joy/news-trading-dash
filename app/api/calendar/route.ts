@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const COUNTRY_SET = ["United States", "Euro Area", "United Kingdom", "Japan", "Canada", "Australia", "New Zealand", "Switzerland", "China"];
-const HIGH_VALUE = /interest rate|monetary policy|central bank|non farm|employment change|unemployment rate|consumer price|cpi|pce|gdp|retail sales|ism|pmi|eia.*(crude|gas|storage)|natural gas storage|wasde|crop progress|grain stocks|planting intentions|trade balance|industrial production|fomc|beige book|jolts|average hourly|jobless claims|tankan|inflation/i;
+// This is an explicit high-impact watchlist. Keep it deliberately narrower than
+// a generic "medium/high" feed: the dashboard is for liquid news-trading events,
+// not every scheduled statistic. Provider event names can vary slightly by country.
+const HIGH_VALUE = /interest rate|monetary policy|central bank|non farm|employment change|unemployment rate|consumer price|cpi|pce|gdp|retail sales|ism|pmi|eia.*(crude|gas|storage)|natural gas storage|wasde|crop progress|grain stocks|planting intentions|trade balance|industrial production|fomc|beige book|jolts|average hourly|jobless claims|tankan|inflation|adp|challenger|consumer sentiment|consumer confidence|opec|oil market report|short.term energy outlook|steo|baker hughes|rig count|global dairy trade|gdt|commitments of traders|cot|treasury auction|factory orders|business climate|zew|ifo|kof/i;
 
 export async function GET(request: NextRequest) {
   const window = request.nextUrl.searchParams.get("window") || "week";
